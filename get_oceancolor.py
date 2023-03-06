@@ -13,7 +13,7 @@
 # https://stackoverflow.com/questions/33488179/how-do-i-download-pdf-file-over-https-with-python
 # https://stackoverflow.com/questions/26745462/how-do-i-use-basic-http-authentication-with-the-python-requests-library
 
-import shutil
+import time
 import warnings
 from datetime import datetime
 
@@ -27,8 +27,6 @@ from utilities import (
     get_subsetted_dataset,
     save_dataset,
 )
-
-a = 2
 
 warnings.filterwarnings(
     "ignore", message="Log scale: values of z <= 0 have been masked"
@@ -54,13 +52,12 @@ dataset_urls = get_opendap_urls(settings_dict)
 
 lon, lat, chl, time_start, time_end = get_subsetted_dataset(settings_dict, dataset_urls)
 
-#########################################################################################
+########################################################################################
 
-### - plotting over time
+# - plotting over time
 
 title_datetime = datetime.fromisoformat(time_start[0].strip("Z"))
 fig, ax = plt.subplots()
-import time
 
 plt.ion()
 for t in range(
@@ -83,15 +80,15 @@ for t in range(
     plt.show()
     time.sleep(1)
     # fig.clf(), fig.clf() # both not working
-    ax.clear()  # removes the plot, but colorbar stays. Seems to work fine if I don't use colorbar.
+    ax.clear()  # removes the plot, but colorbar stays. works if I don't use colorbar.
     # cbar.remove() # this removes the colorbar but reduces the plotting area
-    # plt.ion() # interactive mode on. It seems like there's no need to use this if using pycharm
+    # plt.ion() # interactive mode on. maybe no need to use this if using pycharm
 plt.close()
 del fig
 
 
 if len(time_start) > 1:
-    ### - plotting one frame to get the location for timeseries
+    # - plotting one frame to get the location for timeseries
     fig, ax = plt.subplots()
     aux = ax.contourf(
         lon,
@@ -103,16 +100,17 @@ if len(time_start) > 1:
         cmap=cm.viridis,
     )  # I think I need to set the limits here and that's it, no colorbar
     ax.set_title(
-        f" Specify point for timeseries plot \n Chlorophyll Concentration  {title_datetime.strftime('%b %Y')}"
+        f" Specify point for timeseries plot \n "
+        f"Chlorophyll Concentration  {title_datetime.strftime('%b %Y')}"
     )
     ax.set_xlabel("longitude")
     ax.set_ylabel("latitude")
-    # plt.ion() # interactive mode on. It seems like there's no need to use this if using pycharm
+    # plt.ion() # interactive mode on. no need to use this if using pycharm
     loc = plt.ginput(1, timeout=-1)[0]
     plt.close()
     del fig
 
-    ### - plotting timeseries
+    # - plotting timeseries
     import matplotlib.dates as mdates  # #################################
 
     loi, lov = find_nearest(lon, loc[0])
