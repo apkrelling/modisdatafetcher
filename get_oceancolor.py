@@ -86,7 +86,6 @@ for t in range(
 plt.close()
 del fig
 
-
 if len(time_start) > 1:
     # - plotting one frame to get the location for timeseries
     fig, ax = plt.subplots()
