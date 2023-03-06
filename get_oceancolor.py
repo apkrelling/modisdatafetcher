@@ -17,6 +17,7 @@ import time
 import warnings
 from datetime import datetime
 
+import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 from matplotlib import cm, ticker
 from matplotlib.dates import DateFormatter
@@ -110,8 +111,6 @@ if len(time_start) > 1:
     del fig
 
     # - plotting timeseries
-    import matplotlib.dates as mdates  # #################################
-
     loi, lov = find_nearest(lon, loc[0])
     lai, lav = find_nearest(lat, loc[1])
 
