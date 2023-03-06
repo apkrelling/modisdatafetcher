@@ -28,6 +28,8 @@ from utilities import (
     save_dataset,
 )
 
+a = 2
+
 warnings.filterwarnings(
     "ignore", message="Log scale: values of z <= 0 have been masked"
 )
