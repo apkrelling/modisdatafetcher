@@ -162,7 +162,7 @@ def find_nearest(array, target_value) -> (int, float):
     return idx, array[idx]
 
 
-def get_filelist_command(settings_dict, data_dir="data") -> str:
+def get_filelist_command(settings_dict, datadir="data") -> str:
     global space_res, time_res
     date_min = settings_dict["date_min"]
     date_max = settings_dict["date_max"]
@@ -178,12 +178,12 @@ def get_filelist_command(settings_dict, data_dir="data") -> str:
     # {data_dir}/filelist.txt"""
     curl_command = f"""curl -d "{url}" """
     """https://oceandata.sci.gsfc.nasa.gov/api/file_search """
-    f"""> {data_dir}/filelist.txt"""
+    f"""> {datadir}/filelist.txt"""
 
     return curl_command
 
 
-def get_opendap_urls(settings_dict, data_dir="data") -> list:
+def get_opendap_urls(settings_dict, datadir="data") -> list:
     """Builds urls for data access via opendap.
 
     Parameters:
@@ -210,7 +210,7 @@ def get_opendap_urls(settings_dict, data_dir="data") -> list:
     curl_command = get_filelist_command(settings_dict)
     os.system(curl_command)
 
-    with open(f"{data_dir}/filelist.txt", mode="r") as f:
+    with open(f"{datadir}/filelist.txt", mode="r") as f:
         file_list = list(f)
 
     filenames = []
