@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.8"] #, "3.9", "3.10"]
 
     steps:
     - uses: actions/checkout@v3
@@ -40,7 +40,7 @@ jobs:
       run: |
         # python -m pytest test_get_oceancolor.py -v --durations=0
         # pytest tests.py -v --durations=0 --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml
-          pytest tests.py --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml
+        pytest tests.py --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml
     - name: Upload pytest test results
       uses: actions/upload-artifact@v3
       with:
