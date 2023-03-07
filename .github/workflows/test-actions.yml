@@ -38,6 +38,8 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
+        # python -m pytest test_get_oceancolor.py -v --durations=0
+        # pytest tests.py -v --durations=0 --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml
           pytest tests.py --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml
     - name: Upload pytest test results
       uses: actions/upload-artifact@v3
@@ -45,4 +47,5 @@ jobs:
         name: pytest-results-${{ matrix.python-version }}
         path: junit/test-results-${{ matrix.python-version }}.xml
         # Use always() to always run this step to publish test results when there are test failures
-        if: ${{ always() }}
+        # if: ${{ always() }}
+        if: always()
