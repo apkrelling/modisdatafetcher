@@ -173,12 +173,12 @@ def get_filelist_command(settings_dict, datadir="data") -> str:
         f"results_as_file=1&sensor_id=7&dtid=1043&sdate={date_min}&edate={date_max}"
         f"&subType=1&prod_id=chlor_a&resolution_id={space_res}&period={time_res}"
     )
-    # curl_command = f"""curl -d "{url}"
-    # https://oceandata.sci.gsfc.nasa.gov/api/file_search >
-    # {data_dir}/filelist.txt"""
-    curl_command = f"""curl -d "{url}" """
-    """https://oceandata.sci.gsfc.nasa.gov/api/file_search """
-    f"""> {datadir}/filelist.txt"""
+
+    curl_command = (
+        f"""curl -d "{url}" """
+        f"""https://oceandata.sci.gsfc.nasa.gov/api/file_search > """
+        f"""{datadir}/filelist.txt"""
+    )
 
     return curl_command
 
@@ -207,7 +207,7 @@ def get_opendap_urls(settings_dict, datadir="data") -> list:
     variable = settings_dict["variable"]
 
     # get & clean filenames list
-    curl_command = get_filelist_command(settings_dict)
+    curl_command = get_filelist_command(settings_dict, datadir)
     os.system(curl_command)
 
     with open(f"{datadir}/filelist.txt", mode="r") as f:
