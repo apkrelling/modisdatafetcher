@@ -63,12 +63,14 @@ def check_settings(settings_dict):
 
     if not check_date_format(settings_dict["date_min"]):
         print(
-            "Invalid 'date_min' value. Must be in '%Y-%m-%d %H:%M:%S' format, such as'2021-10-01 00:00:00'. Terminating script."
+            "Invalid 'date_min' value. Must be in '%Y-%m-%d %H:%M:%S' format, "
+            "such as'2021-10-01 00:00:00'. Terminating script."
         )
         sys.exit()
     if not check_date_format(settings_dict["date_max"]):
         print(
-            "Invalid 'date_max' value. Must be in '%Y-%m-%d %H:%M:%S' format, such as'2021-10-01 00:00:00'. Terminating script."
+            "Invalid 'date_max' value. Must be in '%Y-%m-%d %H:%M:%S' format, "
+            "such as'2021-10-01 00:00:00'. Terminating script."
         )
         sys.exit()
     if not (
@@ -83,7 +85,8 @@ def check_settings(settings_dict):
         | (settings_dict["time_res"] == "DAY")
     ):
         print(
-            "Invalid 'time_res' value. Must be either 'YR', 'MO', '8D', 'DAY'. Terminating script."
+            "Invalid 'time_res' value. Must be either 'YR', 'MO', '8D', 'DAY'. "
+            "Terminating script."
         )
         sys.exit()
     if not (
@@ -91,7 +94,9 @@ def check_settings(settings_dict):
         == "http://oceandata.sci.gsfc.nasa.gov/opendap/MODISA/"
     ):
         print(
-            "Invalid 'opendap_base_url' value. Must be 'http://oceandata.sci.gsfc.nasa.gov/opendap/MODISA/'. Terminating script."
+            "Invalid 'opendap_base_url' value. "
+            "Must be 'http://oceandata.sci.gsfc.nasa.gov/opendap/MODISA/'. "
+            "Terminating script."
         )
         sys.exit()
     if not (settings_dict["level"] == "L3"):
@@ -130,7 +135,8 @@ def check_settings(settings_dict):
         )
     ):
         print(
-            "Invalid 'subset coords' value. Must be (lonmin, lonmax, latmin, latmax), with negative signals if applicable. Terminating script."
+            "Invalid 'subset coords' value. Must be (lonmin, lonmax, latmin, latmax), "
+            "with negative signals if applicable. Terminating script."
         )
         sys.exit()
 
@@ -156,20 +162,28 @@ def find_nearest(array, target_value) -> (int, float):
     return idx, array[idx]
 
 
-def get_filelist_command(settings_dict) -> str:
+def get_filelist_command(settings_dict, data_dir="data") -> str:
     global space_res, time_res
     date_min = settings_dict["date_min"]
     date_max = settings_dict["date_max"]
     space_res = settings_dict["space_res"]
     time_res = settings_dict["time_res"]
 
-    url = f"results_as_file=1&sensor_id=7&dtid=1043&sdate={date_min}&edate={date_max}&subType=1&prod_id=chlor_a&resolution_id={space_res}&period={time_res}"
-    curl_command = f"""curl -d "{url}" https://oceandata.sci.gsfc.nasa.gov/api/file_search > data/filelist.txt"""
+    url = (
+        f"results_as_file=1&sensor_id=7&dtid=1043&sdate={date_min}&edate={date_max}"
+        f"&subType=1&prod_id=chlor_a&resolution_id={space_res}&period={time_res}"
+    )
+    # curl_command = f"""curl -d "{url}"
+    # https://oceandata.sci.gsfc.nasa.gov/api/file_search >
+    # {data_dir}/filelist.txt"""
+    curl_command = f"""curl -d "{url}" """
+    """https://oceandata.sci.gsfc.nasa.gov/api/file_search """
+    f"""> {data_dir}/filelist.txt"""
 
     return curl_command
 
 
-def get_opendap_urls(settings_dict) -> list:
+def get_opendap_urls(settings_dict, data_dir="data") -> list:
     """Builds urls for data access via opendap.
 
     Parameters:
@@ -196,7 +210,7 @@ def get_opendap_urls(settings_dict) -> list:
     curl_command = get_filelist_command(settings_dict)
     os.system(curl_command)
 
-    with open("data/filelist.txt", mode="r") as f:
+    with open(f"{data_dir}/filelist.txt", mode="r") as f:
         file_list = list(f)
 
     filenames = []
@@ -211,8 +225,9 @@ def get_opendap_urls(settings_dict) -> list:
     dataset_urls = []
     for k in range(len(yeari)):
         url = (
-            f"{opendap_base_url}{level}SMI/{yeari[k]}/{monthi[k]}{dayi[k]}/{source}.{yeari[k]}{monthi[k]}{dayi[k]}_"
-            f"{yearf[k]}{monthf[k]}{dayf[k]}.{level}{map_bin}.{time_res}.{variable}.chlor_a.{space_res}.nc"
+            f"{opendap_base_url}{level}SMI/{yeari[k]}/{monthi[k]}{dayi[k]}/"
+            f"{source}.{yeari[k]}{monthi[k]}{dayi[k]}_{yearf[k]}{monthf[k]}{dayf[k]}."
+            f"{level}{map_bin}.{time_res}.{variable}.chlor_a.{space_res}.nc"
         )
         dataset_urls.append(url)
     return dataset_urls
@@ -259,7 +274,8 @@ def get_dates(filenames) -> (list, list, list, list, list, list):
 
 
 def get_dataset_keys(dataset_path) -> (str, str, str):
-    """Gets the name of variables correspondent to longitude, latitude and chorophyll in a given dataset.
+    """Gets the name of variables correspondent to longitude,
+    latitude and chorophyll in a given dataset.
 
     Parameters
     -----------
@@ -276,7 +292,8 @@ def get_dataset_keys(dataset_path) -> (str, str, str):
     chl_key : str
         name of the variable corresponding to chlorophyll in the dataset
     """
-    # first gets dataset for the first time-step to do the subsetting (opendap straight w/subsetting is not working)
+    # first gets dataset for the first time-step to do the subsetting
+    # (opendap straight w/subsetting is not working)
     ds = nc.Dataset(dataset_path)
     var_dict = ds.variables
 
@@ -292,7 +309,8 @@ def get_dataset_keys(dataset_path) -> (str, str, str):
     for item in ["lon_key", "lat_key", "chl_key"]:
         if len(keys_dict[item]) == 0:
             print(
-                f"key for {item} was not identified in required dataset. Terminating script."
+                f"key for {item} was not identified in required dataset. "
+                f"Terminating script."
             )
             sys.exit()
         else:
@@ -332,7 +350,7 @@ def get_subsetted_dataset(
         sys.exit()
 
     lon_key, lat_key, chl_key = get_dataset_keys(dataset_urls[0])
-    print(f" ## -- Hang in there... this can take some time...  -- ##")
+    print(" ## -- Hang in there... this can take some time...  -- ##")
 
     lon_original = dataset[lon_key][:]
     lat_original = dataset[lat_key][:]
@@ -364,7 +382,8 @@ def get_subsetted_dataset(
     time_end = []
     for dataset_url in dataset_urls:
         print(
-            f" Gathering info from file {dataset_url.split('/')[-1]} - file {len(time_start) + 1}/{len(dataset_urls)} "
+            f" Gathering info from file {dataset_url.split('/')[-1]} "
+            f"- file {len(time_start) + 1}/{len(dataset_urls)} "
         )
         try:
             _dataset = nc.Dataset(dataset_url)
@@ -412,12 +431,14 @@ def save_dataset(lon, lat, chl, time_start, time_end):
     yeari, monthi, dayi, yearf, monthf, dayf = get_dates(dataset_urls)
 
     filename = (
-        f"data/{source}_{variable}_{space_res}_{time_res}_{yeari[0]}{monthi[0]}_{yearf[-1]}{monthf[-1]}_"
-        f"{subset_coords[0]}_{subset_coords[1]}_{subset_coords[2]}_{subset_coords[-1]}.nc"
+        f"data/{source}_{variable}_{space_res}_{time_res}_"
+        f"{yeari[0]}{monthi[0]}_{yearf[-1]}{monthf[-1]}_"
+        f"{subset_coords[0]}_{subset_coords[1]}_"
+        f"{subset_coords[2]}_{subset_coords[-1]}.nc"
     )
     ds = nc.Dataset(filename, "w", format="NETCDF4")
 
-    ## -- assigning original and new global attrs -- ##
+    # -- assigning original and new global attrs -- ##
     attrs_list = dataset.ncattrs()
 
     # attributes that won't be copied from the original file
@@ -476,16 +497,16 @@ def save_dataset(lon, lat, chl, time_start, time_end):
         chl.min()
     )  # confirm this - -32767.0 -> aprender a lidar com esse valor aqui
 
-    ## -- creates dimensions -- ##
+    # -- creates dimensions -- ##
     #                            dimname, dimlength
     _ = ds.createDimension("nchars", 24)
     _ = ds.createDimension("time", len(time_start))
     _ = ds.createDimension("lat", len(lat))
     _ = ds.createDimension("lon", len(lon))
 
-    ## -- creates variables -- ##
-    # times cannot be saves as datetime objects, only as numpy datatype object, or a string that describes
-    # a numpy dtype object. Basically, can be  int, float, double, string.
+    # -- creates variables -- ##
+    # times cannot be saves as datetime objects, only as np datatype object, or a str
+    # that describes a np dtype object. Basically, can be  int, float, double, string.
     #                                   varname, vardtype, dims(tuple)
     time_start_var = ds.createVariable("time_start", "S1", ("time", "nchars"))
     time_end_var = ds.createVariable("time_end", "S1", ("time", "nchars"))
@@ -502,7 +523,7 @@ def save_dataset(lon, lat, chl, time_start, time_end):
         fill_value=-32767.0,
     )
 
-    ## -- assigns values to variables -- ##
+    # -- assigns values to variables -- ##
     t_start = np.array(time_start, dtype="S24")
     time_start_var._Encoding = "ascii"  # this enables automatic conversion
     time_start_var[:] = t_start
@@ -515,7 +536,7 @@ def save_dataset(lon, lat, chl, time_start, time_end):
     lon_var[:] = lon
     chl_var[:] = chl
 
-    ## -- assigning variables attrs - those will all be maintained -- ##
+    # -- assigning variables attrs - those will all be maintained -- ##
     chl_attrs = dataset.variables[chl_key].ncattrs()
     chl_attrs.remove("_FillValue")
     for attr in chl_attrs:
