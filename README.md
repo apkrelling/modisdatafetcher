@@ -1,3 +1,5 @@
+[![Python package](https://github.com/apkrelling/get_oceancolor/actions/workflows/test-ci.yml/badge.svg?branch=master)](https://github.com/apkrelling/get_oceancolor/actions/workflows/test-ci.yml)
+
 ## Get Oceancolor
 This is a script to easily get chlorophyll-a data from MODIS.
 
