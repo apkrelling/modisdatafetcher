@@ -3,12 +3,30 @@ This is a script to easily get chlorophyll-a data from MODIS.
 
 It downloads various time-steps of chlorophyll data and subsets them according to the user's area of interest.
 ### USAGE
-Install git on your machine
 
-make sure you have a github account
+make sure you have a github account - MAYBE
 
-Fork the repo to your local machine:
 
-Then, create your environment
+[Install GitHub CLI](https://github.com/cli/cli#installation) in your machine
 
-Then you edit the get_oceancolor.py file with the info of the data you'd like to access and download
+
+Fork the repo to your local machine
+
+`gh repo fork REPOSITORY`
+
+Copy the files - MAYBE
+
+
+Create your environment
+
+`conda env create -f environment.yml`
+
+activate the environment
+
+`conda activate get_oceancolor`
+
+Then you edit the get_oceancolor.py file with the info of the data you'd like to access and download. Run the script. Your data should be saved in the data folder.
+
+### Troubleshooting:
+If you're having issues, you might need to get an account at [Earthdata](https://www.earthdata.nasa.gov/eosdis/science-system-description/eosdis-components/earthdata-login). 
+Follow the steps to create an account, log in, and then run the script again.
