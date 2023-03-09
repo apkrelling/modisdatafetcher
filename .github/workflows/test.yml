@@ -28,7 +28,7 @@ jobs:
         # pytest test_get_oceancolor.py --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml
         # pytest --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml
         # took out --doctest-modules b/c it was executing get_oceancolor.py
-        pytest -v --durations=0 --cov=src --cov-report term-missing
+        pytest -v --durations=0 --junitxml=junit/test-results-${{ matrix.python-version }}.xml --cov=src --cov-report term-missing
     - name: Upload pytest test results
       uses: actions/upload-artifact@v3
       if: always()
