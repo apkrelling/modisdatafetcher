@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 from matplotlib import cm, ticker
 from matplotlib.dates import DateFormatter
 
-from utilities import (
+from src.utilities import (
     find_nearest,
     get_opendap_urls,
     get_subsetted_dataset,
