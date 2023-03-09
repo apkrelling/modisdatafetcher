@@ -7,7 +7,7 @@ This is a script to easily get chlorophyll-a data from MODIS.
 It downloads various time-steps of chlorophyll data and subsets them according to the user's area of interest.
 ### USAGE
 
-make sure you have a github account - MAYBE
+make sure you have a github account - MAAAYBE
 
 
 [Install GitHub CLI](https://github.com/cli/cli#installation) in your machine
