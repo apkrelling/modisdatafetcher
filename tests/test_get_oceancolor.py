@@ -4,7 +4,7 @@ from urllib.request import urlopen
 
 import pytest
 
-from utilities import get_filelist_command, get_opendap_urls
+from src.utilities import get_filelist_command, get_opendap_urls
 
 
 @pytest.fixture
