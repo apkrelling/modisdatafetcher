@@ -5,7 +5,13 @@
 # https://oceandata.sci.gsfc.nasa.gov/opendap/MODISA/L3SMI/
 # secondary:
 # https://www.earthdata.nasa.gov/
-# https://search.earthdata.nasa.gov/search/granules/granule-details?p=C2330512018-OB_DAAC&pg[0][v]=f&pg[0][gsk]=-start_date&g=G2556030323-OB_DAAC&q=chlorophyll&polygon[0]=-27%2C-5.55717%2C-27%2C-17.36444%2C-11.25%2C-19.0512%2C-11.25%2C-2.74591%2C-21.9375%2C2.87661%2C-27%2C-5.55717&fi=MODIS&fdc=Ocean%2BBiology%2BDistributed%2BActive%2BArchive%2BCenter%2B%2528OB.DAAC%2529&tl=1673557731!3!!&lat=-0.28125&long=0.28125&zoom=0
+# https://search.earthdata.nasa.gov/search/granules/granule-details?p=C2330512018-OB_DAAC&pg[0][v]=f&pg[0][gsk]=
+# (cont)-start_date&g=G2556030323-OB_DAAC&q=chlorophyll&polygon[0]=-27%2C-5.55717%2C-27%2C-17.36444%2C-11.25%2C-
+# (cont)19.0512%2C-11.25%2C-2.74591%2C-21.9375%2C2.87661%2C-27%2C-5.55717&fi=MODIS&fdc=Ocean%2BBiology%2BDistrib
+# (cont)uted%2BActive%2BArchive%2BCenter%2B%2528OB.DAAC%2529&tl=1673557731!3!!&lat=-0.28125&long=0.28125&zoom=0
+
+# it seems that podaac downloader (https://github.com/podaac/data-subscriber) would not be an option for
+# chlorophyll data
 
 
 # TO-DO: THE ISSUE W/ SERVER NOT WORKING MIGHT BE B/C AUTHENTICATION. CHECK THIS.
