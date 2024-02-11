@@ -344,7 +344,9 @@ def get_subsetted_dataset(
     subset_coords = settings_dict["subset_coords"]
 
     try:
-        dataset = nc.Dataset(dataset_urls[0])
+        dataset = nc.Dataset(
+            dataset_urls[0]
+        )  # calls the nc dataset directly from the url
     except OSError:  # OSError: [Errno -70] NetCDF: DAP server error:
         print("## -- DAP server error: not able to reach files. Try again later. -- ##")
         sys.exit()
