@@ -11,18 +11,12 @@ data files via OPeNDAP, subsets the data, and saves the subsetted data in the us
 
 ### USAGE
 
-make sure you have a github account - MAAAYBE
-
-
 [Install GitHub CLI](https://github.com/cli/cli#installation) in your machine
 
 
 Fork the repo to your local machine
 
 `gh repo fork REPOSITORY`
-
-Copy the files - MAYBE
-
 
 Create your environment
 
