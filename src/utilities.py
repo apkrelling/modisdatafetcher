@@ -163,6 +163,20 @@ def find_nearest(array, target_value) -> (int, float):
 
 
 def get_filelist_command(settings_dict, datadir="data") -> str:
+    """
+    Builds the command to get the list of files that correspond to the search.
+    More info on https://oceandata.sci.gsfc.nasa.gov/api/file_search.
+
+    Parameters:
+    -----------
+    settings_dict : dict
+        basic settings for the script to run
+    datadir : string
+        directory where the list of data files will be created
+
+    Returns:
+        curl_command : string
+    """
     global space_res, time_res
     date_min = settings_dict["date_min"]
     date_max = settings_dict["date_max"]
