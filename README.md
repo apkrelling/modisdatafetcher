@@ -2,9 +2,13 @@
 [![Linting](https://github.com/apkrelling/get_oceancolor/actions/workflows/lint.yml/badge.svg)](https://github.com/apkrelling/get_oceancolor/actions/workflows/lint.yml)
 
 ## Get Oceancolor
-This is a script to easily get chlorophyll-a data from MODIS.
+This is a script to easily get chlorophyll-a data from MODIS. It downloads various time-steps 
+of chlorophyll data and subsets them according to the user's time and area of interest.
 
-It downloads various time-steps of chlorophyll data and subsets them according to the user's area of interest.
+How it works: it gets the names of data files based on the search parameters, accesses the 
+data files via OPeNDAP, subsets the data, and saves the subsetted data in the user's computer.
+
+
 ### USAGE
 
 make sure you have a github account - MAAAYBE
