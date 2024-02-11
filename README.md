@@ -1,3 +1,7 @@
+<!-- TO-DO:
+specify how to run the script. I can run o pycharm no problem, but I think I should give 
+a command line option -->
+
 [![Testing](https://github.com/apkrelling/get_oceancolor/actions/workflows/test.yml/badge.svg)](https://github.com/apkrelling/get_oceancolor/actions/workflows/test.yml)
 [![Linting](https://github.com/apkrelling/get_oceancolor/actions/workflows/lint.yml/badge.svg)](https://github.com/apkrelling/get_oceancolor/actions/workflows/lint.yml)
 
