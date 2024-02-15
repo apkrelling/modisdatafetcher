@@ -2,3 +2,4 @@ README_private.txt
 **/__pycache__/
 .coverage
 .idea/*
+data/*
