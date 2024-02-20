@@ -6,6 +6,7 @@ a command line option -->
 [![Linting](https://github.com/apkrelling/get_oceancolor/actions/workflows/lint.yml/badge.svg)](https://github.com/apkrelling/get_oceancolor/actions/workflows/lint.yml)
 
 ## Get Oceancolor
+
 This is a script to easily get chlorophyll-a data from MODIS. It downloads various time-steps 
 of chlorophyll data and subsets them according to the user's time and area of interest.
 
