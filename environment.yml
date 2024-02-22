@@ -17,6 +17,7 @@ dependencies:
   - cffi=1.14.6=py38ha65f79e_0
   - cfgv=3.3.1=pyhd8ed1ab_0
   - cftime=1.6.2=py38h26c90d9_1
+  - conda-libmamba-solver=23.11.0
   - cryptography=39.0.0=py38h1724139_0
   - curl=7.87.0=h6312ad2_0
   - cycler=0.11.0=pyhd8ed1ab_0
@@ -50,6 +51,7 @@ dependencies:
   - libgfortran5=12.2.0=h337968e_19
   - libgomp=12.2.0=h65d4601_19
   - liblapack=3.9.0=16_linux64_openblas
+  - libmambapy=1.5.3
   - libnetcdf=4.7.4=nompi_h56d31a8_107
   - libnghttp2=1.51.0=hdcd2b5c_0
   - libopenblas=0.3.21=pthreads_h78a6416_3
@@ -66,7 +68,7 @@ dependencies:
   - netcdf4=1.5.5.1=nompi_py38h1cdf482_101
   - nodeenv=1.7.0=pyhd8ed1ab_0
   - numpy=1.22.3=py38h99721a1_2
-  - openssl=1.1.1t=h0b41bf4_0
+  - openssl=3.0.12
   - parso=0.8.3=pyhd8ed1ab_0
   - pexpect=4.8.0=pyh1a96a4e_2
   - pickleshare=0.7.5=py_1003
@@ -83,7 +85,7 @@ dependencies:
   - pyopenssl=23.0.0=pyhd8ed1ab_0
   - pyparsing=3.0.9=pyhd8ed1ab_0
   - pysocks=1.7.1=pyha2e5f31_6
-  - python=3.8.6=hffdb5ce_5_cpython
+  - python=3.11
   - python-dateutil=2.8.2=pyhd8ed1ab_0
   - python_abi=3.8=3_cp38
   - pyyaml=6.0=py38h0a891b7_5
