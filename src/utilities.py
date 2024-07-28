@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import functools
 import os
 import re
@@ -27,7 +29,7 @@ def debug(func):
     return wrapper_debug
 
 
-def check_date_format(item) -> bool:
+def check_date_format(item: str) -> bool:
     """Tests if input has "%Y-%m-%d %H:%M:%S" date format.
 
     Parameters:
@@ -46,7 +48,7 @@ def check_date_format(item) -> bool:
         return False
 
 
-def check_settings(settings_dict):
+def check_settings(settings_dict: dict):
     """Makes sure the settings have valid parameters.
 
     This function checks all the items in settings_dict to make sure
@@ -141,7 +143,7 @@ def check_settings(settings_dict):
         sys.exit()
 
 
-def find_nearest(array, target_value) -> (int, float):
+def find_nearest(array, target_value: int | float) -> (int, float):
     """Finds the index and value of an array element closest to a given target value.
 
     Parameters:
@@ -162,7 +164,7 @@ def find_nearest(array, target_value) -> (int, float):
     return idx, array[idx]
 
 
-def get_filelist_command(settings_dict, datadir="data") -> str:
+def get_filelist_command(settings_dict: dict, datadir="../data") -> str:  #
     """
     Builds the command to get the list of files that correspond to the search.
     More info on https://oceandata.sci.gsfc.nasa.gov/api/file_search.
@@ -197,7 +199,7 @@ def get_filelist_command(settings_dict, datadir="data") -> str:
     return curl_command
 
 
-def get_opendap_urls(settings_dict, datadir="data") -> list:
+def get_opendap_urls(settings_dict: dict, datadir="../data") -> list:
     """Builds urls for data access via opendap.
 
     Parameters:
@@ -247,7 +249,7 @@ def get_opendap_urls(settings_dict, datadir="data") -> list:
     return dataset_urls
 
 
-def get_dates(filenames) -> (list, list, list, list, list, list):
+def get_dates(filenames: list) -> (list, list, list, list, list, list):
     """Gets dates from each filename in order to build the opendap urls.
 
     Parameters
@@ -287,7 +289,7 @@ def get_dates(filenames) -> (list, list, list, list, list, list):
     return yeari, monthi, dayi, yearf, monthf, dayf
 
 
-def get_dataset_keys(dataset_path) -> (str, str, str):
+def get_dataset_keys(dataset_path: str) -> (str, str, str):
     """Gets the name of variables correspondent to longitude,
     latitude and chorophyll in a given dataset.
 
@@ -334,7 +336,7 @@ def get_dataset_keys(dataset_path) -> (str, str, str):
 
 
 def get_subsetted_dataset(
-    settings_dict, dataset_urls
+    settings_dict: dict, dataset_urls: list
 ) -> (list, list, list, list, list):
     """Subsets a dataset for the chosen geographical area, for multiple time-steps.
 
@@ -366,7 +368,9 @@ def get_subsetted_dataset(
         sys.exit()
 
     lon_key, lat_key, chl_key = get_dataset_keys(dataset_urls[0])
-    print(" ## -- Hang in there... this can take some time...  -- ##")
+    print(
+        " \n ##### ----- Hang in there... this may take some time...  ----- ##### \n "
+    )
 
     lon_original = dataset[lon_key][:]
     lat_original = dataset[lat_key][:]
@@ -428,7 +432,9 @@ def get_subsetted_dataset(
     return lon, lat, chl, time_start, time_end
 
 
-def save_dataset(lon, lat, chl, time_start, time_end):
+def save_dataset(
+    lon: np.ndarray, lat: np.ndarray, chl: np.ndarray, time_start: list, time_end: list
+):
     """Saves the dataset in a netcdf file.
 
     Parameters
@@ -447,7 +453,7 @@ def save_dataset(lon, lat, chl, time_start, time_end):
     yeari, monthi, dayi, yearf, monthf, dayf = get_dates(dataset_urls)
 
     filename = (
-        f"data/{source}_{variable}_{space_res}_{time_res}_"
+        f"../data/{source}_{variable}_{space_res}_{time_res}_"
         f"{yeari[0]}{monthi[0]}_{yearf[-1]}{monthf[-1]}_"
         f"{subset_coords[0]}_{subset_coords[1]}_"
         f"{subset_coords[2]}_{subset_coords[-1]}.nc"
