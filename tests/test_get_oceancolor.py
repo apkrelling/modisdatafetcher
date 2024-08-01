@@ -4,7 +4,7 @@ from urllib.request import urlopen
 
 import pytest
 
-from src.utilities import get_filelist_command, get_opendap_urls
+from src.get_oceancolor.utilities import get_filelist_command, get_opendap_urls
 
 
 @pytest.fixture
