@@ -199,7 +199,7 @@ def get_filelist_command(settings_dict: dict, datadir="../data") -> str:  #
     return curl_command
 
 
-def get_opendap_urls(settings_dict: dict, datadir="../data") -> list:
+def get_opendap_urls(settings_dict: dict, datadir="../../data") -> list:
     """Builds urls for data access via opendap.
 
     Parameters:
