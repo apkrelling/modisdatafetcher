@@ -1,4 +1,4 @@
-name: get_oceancolor
+name: modisdatafetcher
 channels:
   - conda-forge
   - defaults
