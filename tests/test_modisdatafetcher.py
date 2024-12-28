@@ -4,7 +4,8 @@ from urllib.request import urlopen
 
 import pytest
 
-from src.get_oceancolor.utilities import get_filelist_command, get_opendap_urls
+from src.modisdatafetcher.modisdatafetcher import get_opendap_urls
+from src.modisdatafetcher.utilities import get_filelist_command
 
 
 @pytest.fixture
